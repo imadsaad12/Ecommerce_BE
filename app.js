@@ -7,17 +7,15 @@ const app = express();
 dotenv.config();
 app.use(express.json());
 mongoose
-  .connect(process.env.MONGODB_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then((result) => {
-    app.listen(process.env.PORT, () => {
-      console.log("server is running");
+    .connect(process.env.MONGODB_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+    .then((result) => {
+      app.listen(process.env.PORT, () => {
+      });
+    })
+    .catch((err) => {
     });
-  })
-  .catch((err) => {
-    console.log(err);
-  });
 
-app.use("/product", productRoute);
+app.use('/product', productRoute);

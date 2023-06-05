@@ -1,44 +1,39 @@
-const Product = require("../models/productModel");
-const serviceProduct = require("../models/productModel");
+const serviceProduct = require('../services/productService');
 
 const addproduct = async (req, res) => {
   const data = req.body;
   try {
-    product = await new Product(data);
-
-    await product.save();
-
-    return res.json({ id: product._id });
+    await serviceProduct.addProduct(data);
+    return res.status(200).send('Product added successfully');
   } catch (error) {
-    console.log(error);
-    return res.send("Failed to add a new product");
+    return res.status(400);
   }
 };
 
 const getAllProducts = async (req, res) => {
   try {
-    const all_products = await Product.find();
-    if (!all_products) {
-      return res.send("No products available");
+    const products = await serviceProduct.allProducts();
+    if (!products) {
+      return res.status(404).send('No products available');
     } else {
-      return res.json(all_products);
+      return res.json(products);
     }
   } catch (error) {
-    console.log(error);
+    return res.status(400);
   }
 };
 
 const getProduct = async (req, res) => {
   try {
     const id = req.params.id;
-    const product = await Product.findById(id);
+    const product = await serviceProduct.getProduct(id);
     if (!product) {
-      return res.send("Product not found");
+      return res.status(404).send('Product not found');
     } else {
       return res.json(product);
     }
   } catch (error) {
-    console.log(error);
+    return res.status(400);
   }
 };
 

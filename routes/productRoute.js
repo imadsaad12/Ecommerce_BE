@@ -1,11 +1,12 @@
-const express = require("express");
+const express = require('express');
+// eslint-disable-next-line new-cap
 const route = express.Router();
-const productController = require("../controllers/productController");
+const productController = require('../controllers/productController');
 
-route.post("/add", productController.addproduct);
+route.post('/add', productController.addproduct);
 
-route.get("/", productController.getAllProducts);
+route.get('/', productController.getAllProducts);
 
-route.get("/:id", productController.getProduct);
+route.get('/:id', productController.getProduct);
 
 module.exports = route;
