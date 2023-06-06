@@ -18,4 +18,4 @@ mongoose
     .catch((err) => {
     });
 
-app.use('/product', productRoute);
+app.use('/products', productRoute);
