@@ -1,21 +1,17 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const cors = require('cors');
 const productRoute = require('./routes/productRoute');
-
+const {connectToDatabase} = require('./database/index');
+const logApiHit = require('./middlewares/logger');
 const app = express();
 dotenv.config();
+
+connectToDatabase();
+
 app.use(express.json());
-mongoose
-    .connect(process.env.MONGODB_URL, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    })
-    .then((result) => {
-      app.listen(process.env.PORT, () => {
-      });
-    })
-    .catch((err) => {
-    });
+app.use(cors());
+app.use(logApiHit);
 
 app.use('/products', productRoute);
+app.listen(process.env.PORT, () => {});

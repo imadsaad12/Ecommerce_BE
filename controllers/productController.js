@@ -1,38 +1,84 @@
 // eslint-disable-next-line max-len
-const {createProduct, allProducts, getSingleProduct} = require('../services/productService');
+const {
+  createProduct,
+  allProducts,
+  getSingleProduct,
+} = require('../services/productService');
+const logger = require('../utils');
+const {makeError} = require('../utils/errors');
+const {
+  SUCCESS,
+  INTERNAL_SERVER,
+  NOT_FOUND,
+} = require('../utils/server-Statuses');
+const {
+  SUCCESS_MESSAGE,
+  INTERNAL_ERROR_MESSAGE,
+  NOT_FOUND_MESSAGE,
+} = require('../utils/server-messages');
 
 const addproduct = async (req, res) => {
   const data = req.body;
   try {
     await createProduct(data);
-    res.status(200).send('Product added successfully');
+    logger.info('Product added successfully');
+
+    res.status = SUCCESS;
+    res.send(SUCCESS_MESSAGE);
   } catch (error) {
-    res.status(400);
+    const message = error.message || INTERNAL_ERROR_MESSAGE;
+    const status = error.statusCode || INTERNAL_SERVER;
+
+    logger.error(message);
+
+    res.send(makeError(message, status));
   }
 };
 
 const getAllProducts = async (req, res) => {
   try {
     const products = await allProducts();
+
     if (!products) {
-      return res.status(404).send('No products available');
+      logger.error('No products found');
+
+      res.status = NOT_FOUND;
+      return res.send(NOT_FOUND_MESSAGE);
     }
+
+    res.status = SUCCESS;
     res.json(products);
   } catch (error) {
-    res.status(400);
+    const message = error.message || INTERNAL_ERROR_MESSAGE;
+    const status = error.statusCode || INTERNAL_SERVER;
+
+    logger.error(message);
+
+    res.send(makeError(message, status));
   }
 };
 
 const getProduct = async (req, res) => {
   try {
     const {id} = req.params;
+
     const product = await getSingleProduct(id);
+
     if (!product) {
-      return res.status(404).send('Product not found');
+      logger.error('No products found');
+
+      res.status = NOT_FOUND;
+      return res.send(NOT_FOUND_MESSAGE);
     }
+
     res.json(product);
   } catch (error) {
-    res.status(400);
+    const message = error.message || INTERNAL_ERROR_MESSAGE;
+    const status = error.statusCode || INTERNAL_SERVER;
+
+    logger.error(message);
+
+    res.send(makeError(message, status));
   }
 };
 
