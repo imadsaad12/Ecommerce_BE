@@ -7,7 +7,7 @@ pipeline {
         stage('Build') {
             steps {
                 // Clone your repository
-                git 'https://github.com/imadsaad12/IBH_Ecommerce/'
+                git 'https://github.com/imadsaad12/Ecommerce_BE'
                 
                 sh 'npm install'
                 sh 'npm run build'
