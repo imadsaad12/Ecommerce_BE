@@ -4,8 +4,8 @@ const {
   allProducts,
   getSingleProduct,
 } = require('../services/productService');
-const logger = require('../utils');
-const { makeError } = require('../utils/errors');
+const logger = require('../utils/logger');
+const {makeError} = require('../utils/errors');
 const {
   SUCCESS,
   INTERNAL_SERVER,
@@ -61,7 +61,7 @@ const getAllProducts = async (req, res) => {
 
 const getProduct = async (req, res) => {
   try {
-    const { id } = req.params;
+    const {id} = req.params;
 
     const product = await getSingleProduct(id);
 
