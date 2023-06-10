@@ -1,8 +1,8 @@
 pipeline {
     agent any
-    environment {
-		DOCKERHUB_CREDENTIALS=credentials('dockerHub')
-	}
+    // environment {
+	// 	DOCKERHUB_CREDENTIALS=credentials('dockerHub')
+	// }
     stages {
         stage('Build') {
             steps {
@@ -14,14 +14,14 @@ pipeline {
                 
                 // Build the Docker image
                 sh 'docker build -t ecommerce-backend .'
-                sh 'image built'
+                echo 'image built'
             }
         }
         
         stage('Push') {
             steps {
                 // Log in to your Docker registry
-                sh 'docker login -u DOCKERHUB_CREDENTIALS_USR -p  DOCKERHUB_CREDENTIALS_PSW isdocker12/ecommerce '
+                sh 'docker login -u isdocker12 -p  Zs~LD_y99c%pB?g isdocker12/ecommerce '
                 
                 // Push the Docker image to the registry
                 sh 'docker push ecommerce-backend'
