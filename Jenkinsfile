@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:14' // Specify the Docker image you want to use for your build environment
-            args '-v /var/run/docker.sock:/var/run/docker.sock' // Mount the Docker socket for Docker-in-Docker support
-        }
-    }
+    agent any
 
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerHub')
@@ -18,26 +13,16 @@ pipeline {
         stage('Build') {
             steps {
                 git 'https://github.com/imadsaad12/Ecommerce_BE'
-
                 sh 'npm install'
-
-                script {
-                    docker.withRegistry('', 'dockerHub') {
-                        sh 'docker build -t ecommerce-backend .'
-                    }
-                }
-
+                sh 'docker build -t ecommerce-backend .'
                 echo 'image built'
             }
         }
 
         stage('Push image') {
             steps {
-                script {
-                    docker.withRegistry('', 'dockerHub') {
-                        sh 'docker push ecommerce-backend'
-                    }
-                }
+             
+                sh 'docker push ecommerce-backend'
 
                 echo 'image pushed'
             }
