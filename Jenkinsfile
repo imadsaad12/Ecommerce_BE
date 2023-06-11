@@ -5,7 +5,6 @@ pipeline {
 	}
     tools {
         nodejs "Nodejs"
-        docker "Docker"
         }
     stages {
         stage('Build') {
