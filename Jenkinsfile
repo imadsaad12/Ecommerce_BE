@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:14' // Specify the Docker image you want to use for your build environment
+            args '-v /var/run/docker.sock:/var/run/docker.sock' // Mount the Docker socket for Docker-in-Docker support
+        }
+    }
 
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerHub')
