@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent {
+        docker{
+            image 'docker:latest'
+        }
+    }
     environment {
 		DOCKERHUB_CREDENTIALS=credentials('dockerHub')
 	}
@@ -15,9 +19,7 @@ pipeline {
                 
                 sh 'npm install'
                
-                dockerTool(name: 'docker') {
-                    sh 'docker build -t ecommerce-backend .'
-                }
+                sh 'docker build -t ecommerce-backend .'
                  
                 echo 'image built'
             }
@@ -27,9 +29,7 @@ pipeline {
             steps {
                 // sh 'docker login -u isdocker12 -p Zs~LD_y99c%pB?g isdocker12/ecommerce '
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                dockerTool(name: 'docker') {
-                   sh 'docker push ecommerce-backend'
-                }
+                sh 'docker push ecommerce-backend'
                 echo 'image pushed'
             }
         }
