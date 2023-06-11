@@ -1,16 +1,13 @@
 pipeline {
     agent {
-        docker{
+        docker {
             image 'docker:latest'
         }
     }
     environment {
 		DOCKERHUB_CREDENTIALS=credentials('dockerHub')
 	}
-    tools {
-    nodejs "Nodejs"
-    dockerTool(name: 'docker', home: '/var/run/docker.sock') 
-  }
+    tools { nodejs "Nodejs" }
     stages {
         stage('Build') {
             steps {
