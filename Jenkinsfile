@@ -1,24 +1,25 @@
 pipeline {
-    agent {
-        docker {
-            image 'docker:latest'
-        }
-    }
+    agent any
+
     environment {
 		DOCKERHUB_CREDENTIALS=credentials('dockerHub')
 	}
+
     tools { nodejs "Nodejs" }
+
     stages {
         stage('Build') {
             steps {
-                // Clone your repository
+               
                 git 'https://github.com/imadsaad12/Ecommerce_BE'
                 
-                sh 'npm install'
-               
-                sh 'docker build -t ecommerce-backend .'
-                 
-                echo 'image built'
+                docker.image('node:14-alpine').inside {
+                    sh 'npm install'
+                
+                    sh 'docker build -t ecommerce-backend .'
+                    
+                    echo 'image built'
+                }
             }
         }
         
