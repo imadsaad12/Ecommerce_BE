@@ -4,8 +4,9 @@ pipeline {
 		DOCKERHUB_CREDENTIALS=credentials('dockerHub')
 	}
     tools {
-        nodejs "Nodejs"
-        }
+    nodejs "Nodejs"
+    dockerTool(name: 'docker', home: '/var/run/docker.sock') 
+  }
     stages {
         stage('Build') {
             steps {
