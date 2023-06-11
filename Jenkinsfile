@@ -13,12 +13,14 @@ pipeline {
                
                 git 'https://github.com/imadsaad12/Ecommerce_BE'
                 
-                docker.image('node:14-alpine').inside {
-                    sh 'npm install'
-                
-                    sh 'docker build -t ecommerce-backend .'
+                script{
+                    docker.image('node:14-alpine').inside {
+                        sh 'npm install'
                     
-                    echo 'image built'
+                        sh 'docker build -t ecommerce-backend .'
+                        
+                        echo 'image built'
+                    }
                 }
             }
         }
