@@ -3,7 +3,10 @@ pipeline {
     environment {
 		DOCKERHUB_CREDENTIALS=credentials('dockerHub')
 	}
-    tools {nodejs "Nodejs"}
+    tools {
+        nodejs "Nodejs"
+        docker "Docker"
+        }
     stages {
         stage('Build') {
             steps {
