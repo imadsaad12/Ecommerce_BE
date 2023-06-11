@@ -14,8 +14,11 @@ pipeline {
                 git 'https://github.com/imadsaad12/Ecommerce_BE'
                 
                 sh 'npm install'
-                // Build the Docker image
-                sh 'docker build -t ecommerce-backend .'
+               
+                dockerTool(name: 'docker', installationName: 'Docker') {
+                    sh 'docker build -t ecommerce-backend .'
+                }
+                 
                 echo 'image built'
             }
         }
@@ -24,7 +27,9 @@ pipeline {
             steps {
                 // sh 'docker login -u isdocker12 -p Zs~LD_y99c%pB?g isdocker12/ecommerce '
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                sh 'docker push ecommerce-backend'
+                dockerTool(name: 'docker', installationName: 'Docker') {
+                   sh 'docker push ecommerce-backend'
+                }
                 echo 'image pushed'
             }
         }
