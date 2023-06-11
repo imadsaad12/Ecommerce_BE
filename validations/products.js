@@ -11,6 +11,13 @@ const addProductSchema = Joi.object().keys({
   }),
 });
 
+const getProductSchema = Joi.object().keys({
+  params: Joi.object({
+    id: Joi.string().required(),
+  }),
+});
+
 module.exports = {
   addProductSchema,
+  getProductSchema,
 };

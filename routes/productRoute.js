@@ -8,12 +8,15 @@ const {
   getProduct,
 } = require('../controllers/productController');
 const validateSchema = require('../middlewares/ValidateSchema');
-const {addProductSchema} = require('../validations/products/addProduct');
+const {
+  addProductSchema,
+  getProductSchema,
+} = require('../validations/products');
 
 route.post('/', validateSchema(addProductSchema), addproduct);
 
 route.get('/', getAllProducts);
 
-route.get('/:id', getProduct);
+route.get('/:id', validateSchema(getProductSchema), getProduct);
 
 module.exports = route;

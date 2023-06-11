@@ -106,6 +106,63 @@ paths:
               example:
                 message: not found
                 status: 404
+  /products/{id}:
+    get:
+      summary: Get product by ID
+      tags: 
+      - Products
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: The ID of the product to retrieve
+      responses:
+        200:
+          description: Product fetched successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                  properties:
+                    size:
+                      type: number
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    category:
+                      type: string
+                    image:
+                      type: string
+                    price:
+                      type: number
+              example:
+                - size: 10
+                  name: shirt
+                  description: description for shirt
+                  category: pants
+                  image: url
+                  price: 15      
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example:
+                message: Internal server error
+                status: 500       
+        404:
+          description: Cannot find product
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example:
+                message: not found
+                status: 404
 components:
   schemas:
     error:

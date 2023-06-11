@@ -2,7 +2,7 @@ const {makeError} = require('../utils/errors');
 
 const validateSchema = (schema) => (req, res, next) => {
   const {error} = schema.validate(req, {
-    allowUnknown: false,
+    allowUnknown: true,
     abortEarly: false,
   });
   if (error) {
