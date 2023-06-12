@@ -7,10 +7,10 @@ const {
   getAllProducts,
   getProduct,
 } = require('../controllers/productController');
-const validateSchema = require('../middlewares/ValidateSchema');
-const {addProductSchema} = require('../validations/products/addProduct');
+// const validateSchema = require('../middlewares/ValidateSchema');
+const { addProductSchema } = require('../validations/products/addProduct');
 
-route.post('/', validateSchema(addProductSchema), addproduct);
+route.post('/', addproduct);
 
 route.get('/', getAllProducts);
 
