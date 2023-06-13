@@ -1,20 +1,19 @@
 module.exports = {
-  'env': {
-    'browser': true,
-    'commonjs': true,
-    'es2021': true,
+  env: {
+    browser: true,
+    commonjs: true,
+    es2021: true,
   },
-  'extends': [
-    'google',
-    'plugin:react/recommended',
-  ],
-  'parserOptions': {
-    'ecmaVersion': 'latest',
+  extends: ['google', 'plugin:react/recommended'],
+  parserOptions: {
+    ecmaVersion: 'latest',
   },
-  'plugins': [
-    'react',
-  ],
-  'rules': {
+  plugins: ['react'],
+  rules: {
     'no-console': 'error',
+    'object-curly-spacing': 'off',
+    'indent': 'off',
+    'camelcase': 'error',
+    'new-cap': 'off',
   },
 };

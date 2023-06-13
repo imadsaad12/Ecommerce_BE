@@ -5,6 +5,10 @@ const makeError = (message, status) => {
   return error;
 };
 
+const tryCatch = (handler) => (req, res, next) =>
+  Promise.resolve(handler(req, res, next)).catch(next);
+
 module.exports = {
   makeError,
+  tryCatch,
 };

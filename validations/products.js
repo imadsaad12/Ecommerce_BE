@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const addProductSchema = Joi.object().keys({
+const addProductSchema = {
   body: Joi.object({
     size: Joi.number().required(),
     name: Joi.string().required(),
@@ -9,13 +9,13 @@ const addProductSchema = Joi.object().keys({
     category: Joi.string().required(),
     image: Joi.string().required(),
   }),
-});
+};
 
-const getProductSchema = Joi.object().keys({
+const getProductSchema = {
   params: Joi.object({
     id: Joi.string().required(),
   }),
-});
+};
 
 module.exports = {
   addProductSchema,
