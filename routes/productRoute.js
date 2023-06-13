@@ -1,16 +1,15 @@
 const express = require('express');
-// eslint-disable-next-line new-cap
 const route = express.Router();
-// eslint-disable-next-line max-len
 const {
   addproduct,
   getAllProducts,
   getProduct,
 } = require('../controllers/productController');
-// const validateSchema = require('../middlewares/ValidateSchema');
+const { validate } = require('express-validation');
 const { addProductSchema } = require('../validations/products/addProduct');
+const { tryCatch } = require('../utils/errors');
 
-route.post('/', addproduct);
+route.post('/', tryCatch(validate(addProductSchema)), addproduct);
 
 route.get('/', getAllProducts);
 
