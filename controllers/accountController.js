@@ -7,11 +7,9 @@ const {
 const logger = require('../utils/logger');
 const {
   INTERNAL_ERROR_MESSAGE,
-  SIGNUP_SUCCESSFULLY_MESSAGE,
   CONFLICT_MESSAGE,
   NOT_FOUND_MESSAGE,
   UNAUTHORIZED_MESSAGE,
-  SUCCESS_MESSAGE,
 } = require('../utils/server-messages');
 const {
   INTERNAL_SERVER,
