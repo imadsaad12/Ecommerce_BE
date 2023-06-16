@@ -15,4 +15,4 @@ RUN npm install pm2 -g
 COPY . .
 EXPOSE 4000
 # Specify the command to start the app
-CMD ["npm", "run","start:dev"]
+CMD ["npm", "run","start"]

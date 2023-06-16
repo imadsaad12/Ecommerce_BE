@@ -11,11 +11,13 @@ const {
   getProductSchema,
 } = require('../validations/products');
 
+const productRoute = (router) => {
+  router.post('/', validate(addProductSchema), addproduct);
 
-route.post('/', validate(addProductSchema), addproduct);
+  router.get('/', getAllProducts);
 
-route.get('/', getAllProducts);
+  router.get('/:id', validate(getProductSchema), getProduct);
+  return router;
+};
 
-route.get('/:id', validate(getProductSchema), getProduct);
-
-module.exports = route;
+module.exports = productRoute;

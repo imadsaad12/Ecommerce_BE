@@ -3,6 +3,9 @@ const NOT_FOUND = 404;
 const BAD_REQUEST = 400;
 const SUCCESS = 200;
 const SUCCESS_NO_CONTENT = 204;
+const SIGNUP_SUCCESSFULLY = 201;
+const CONFLICT = 409;
+const UNAUTHORIZED = 401;
 
 module.exports = {
   INTERNAL_SERVER,
@@ -10,4 +13,7 @@ module.exports = {
   BAD_REQUEST,
   SUCCESS,
   SUCCESS_NO_CONTENT,
+  SIGNUP_SUCCESSFULLY,
+  CONFLICT,
+  UNAUTHORIZED,
 };
