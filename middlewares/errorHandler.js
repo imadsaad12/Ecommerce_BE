@@ -12,7 +12,7 @@ const errorHandler = (error, req, res, next) => {
     const message = error.message || INTERNAL_ERROR_MESSAGE;
     const status = error.status || INTERNAL_SERVER;
 
-    res.statusCode = status;
+    res.status(status);
     return res.send(makeError(message, status));
   }
   next();

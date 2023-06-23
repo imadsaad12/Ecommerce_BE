@@ -66,7 +66,7 @@ const signIn = async (req, res) => {
       throw makeError(NOT_FOUND_MESSAGE, NOT_FOUND);
     }
 
-    const isMatched = bcrypt.compare(password, user.password);
+    const isMatched = await bcrypt.compare(password, user.password);
 
     if (!isMatched) {
       logger.error('Password is Incorrect');
@@ -83,6 +83,7 @@ const signIn = async (req, res) => {
     const message = error.message || INTERNAL_ERROR_MESSAGE;
     const status = error.status || INTERNAL_SERVER;
 
+    res.status(status);
     res.send(makeError(message, status));
   }
 };
