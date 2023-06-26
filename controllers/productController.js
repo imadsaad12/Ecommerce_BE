@@ -3,9 +3,11 @@ const {
   createProduct,
   allProducts,
   getSingleProduct,
+  deleteProduct,
+  updateProduct,
 } = require('../services/productService');
 const logger = require('../utils/logger');
-const {makeError} = require('../utils/errors');
+const { makeError } = require('../utils/errors');
 const {
   SUCCESS,
   INTERNAL_SERVER,
@@ -61,7 +63,7 @@ const getAllProducts = async (req, res) => {
 
 const getProduct = async (req, res) => {
   try {
-    const {id} = req.params;
+    const { id } = req.params;
 
     const product = await getSingleProduct(id);
 
@@ -83,8 +85,59 @@ const getProduct = async (req, res) => {
   }
 };
 
+const deleteP = async (req, res) => {
+  const del_id = req.params.id;
+
+  try {
+    await deleteProduct(id);
+
+    logger.info('Product deleted successfully');
+
+    res.status = SUCCESS_NO_CONTENT;
+    res.send(SUCCESS_MESSAGE);
+    res.status = SUCCESS;
+  } catch (error) {
+    const message = error.message || INTERNAL_ERROR_MESSAGE;
+    const status = error.statusCode || INTERNAL_SERVER;
+
+    logger.error(message);
+
+    res.send(makeError(message, status));
+  }
+};
+
+const updateP = async (req, res) => {
+  const up_id = req.params.id;
+
+  data = {
+    name: req.body.name,
+    description: req.body.description,
+    price: req.body.price,
+    category: req.body.category,
+    size: req.body.size,
+    image: req.body.image
+  };
+
+  try {
+    await updateProduct(up_id, data);
+    logger.info('Product added successfully');
+
+    res.status = SUCCESS_NO_CONTENT;
+    res.send(SUCCESS_MESSAGE);
+  } catch (error) {
+    const message = error.message || INTERNAL_ERROR_MESSAGE;
+    const status = error.statusCode || INTERNAL_SERVER;
+
+    logger.error(message);
+
+    res.send(makeError(message, status));
+  }
+};
+
 module.exports = {
   addproduct,
   getAllProducts,
   getProduct,
+  deleteP,
+  updateP,
 };
