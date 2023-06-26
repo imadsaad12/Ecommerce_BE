@@ -179,6 +179,65 @@ paths:
               example:
                 message: not found
                 status: 404
+  /products/{id}:
+    post:
+      summary: update product by ID
+      tags: 
+      - Products
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: The ID of the product to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                size:
+                  type: number
+                  example: 12
+                name:
+                  type: string
+                  example: any
+                description:
+                  type: string
+                  example: description
+                price:
+                  type: number
+                  example: 122
+                category:
+                  type: string
+                  example: T-Shirt
+                image:
+                  type: string
+                  example: ass
+      responses:
+        200:
+          description: Product updated successfully
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example:
+                message: Internal server error
+                status: 500       
+        404:
+          description: Cannot find product
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example:
+                message: not found
+                status: 404
+  
   /accounts/signup:
     post:
       tags:
