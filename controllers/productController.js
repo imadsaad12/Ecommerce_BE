@@ -26,7 +26,7 @@ const addproduct = async (req, res) => {
     await createProduct(data);
     logger.info('Product added successfully');
 
-    res.status = SUCCESS_NO_CONTENT;
+    res.statusCode = SUCCESS_NO_CONTENT;
     res.send(SUCCESS_MESSAGE);
   } catch (error) {
     const message = error.message || INTERNAL_ERROR_MESSAGE;
@@ -49,7 +49,7 @@ const getAllProducts = async (req, res) => {
       return res.send(NOT_FOUND_MESSAGE);
     }
 
-    res.status = SUCCESS;
+    res.statusCode = SUCCESS;
     res.json(products);
   } catch (error) {
     const message = error.message || INTERNAL_ERROR_MESSAGE;
@@ -73,7 +73,7 @@ const getProduct = async (req, res) => {
       res.status = NOT_FOUND;
       return res.send(NOT_FOUND_MESSAGE);
     }
-    res.status = SUCCESS;
+    res.statusCode = SUCCESS;
     res.json(product);
   } catch (error) {
     const message = error.message || INTERNAL_ERROR_MESSAGE;

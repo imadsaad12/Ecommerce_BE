@@ -1,5 +1,3 @@
-const express = require('express');
-const route = express.Router();
 const {
   addproduct,
   getAllProducts,
@@ -15,15 +13,17 @@ const {
   updateProductSchema,
 } = require('../validations/products');
 
+const productRoute = (router) => {
+  router.post('/', validate(addProductSchema), addproduct);
 
-route.post('/', validate(addProductSchema), addproduct);
+  router.get('/', getAllProducts);
 
-route.get('/', getAllProducts);
+  router.get('/:id', validate(getProductSchema), getProduct);
 
-route.get('/:id', validate(getProductSchema), getProduct);
+  router.delete('/delete/:id', validate(deleteProductSchema), deleteP);
 
-route.delete('/delete/:id', validate(deleteProductSchema), deleteP);
+  router.put('/update/:id', validate(updateProductSchema), updateP);
+  return router;
+};
 
-route.put('/update/:id', validate(updateProductSchema), updateP);
-
-module.exports = route;
+module.exports = productRoute;

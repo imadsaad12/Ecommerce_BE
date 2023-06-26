@@ -3,6 +3,22 @@ info:
   title: E-commerce APIs
   description: Documentation for all backend apis
   version: 1.0.0
+components:
+  securitySchemes:
+    jwt:
+      type: apiKey
+      name: Authorization
+      in: header
+  schemas:
+    error:
+      type: object
+      properties:
+        message:
+          type: string
+        status:
+          type: number      
+security:
+  - jwt: []
 paths:
   /products:
     get:
@@ -163,14 +179,124 @@ paths:
               example:
                 message: not found
                 status: 404
-components:
-  schemas:
-    error:
-      type: object
-      properties:
-        message:
-          type: string
-        status:
-          type: number  
+  /accounts/signup:
+    post:
+      tags:
+        - Account
+      description: Register user
+      requestBody: 
+        required: true
+        content:
+         application/json:
+          schema:
+            type: object
+            properties:
+              userName:
+                type: string
+                example: Imad.Saad 
+              firstName:
+                type: string
+                example: Imad 
+              lastName:
+                type: string
+                example: saad 
+              password:
+                type: string
+                example: Password@123 
+      responses:
+        201:
+          description: User added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: h1g23jhg12g3
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example:
+                message: Internal server error
+                status: 500       
+        404:
+          description: Cannot find products
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example:
+                message: not found
+                status: 404
+        400:
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example:
+                message: Bad Request
+                status: 400
+  /accounts/signin:
+    post:
+      tags:
+        - Account
+      description: Sign in to the platform
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userName:
+                  type: string
+                  example: Imad.saad
+                password:
+                  type: string
+                  example: Password@123
+      responses:
+        200:
+          description: Sign in successfully
+          content:
+            application/json:
+               schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: h1g23jhg12g3
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example:
+                message: Internal server error
+                status: 500       
+        404:
+          description: Cannot find products
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example:
+                message: not found
+                status: 404
+        400:
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example:
+                message: Bad Request
+                status: 400            
+
 
 
