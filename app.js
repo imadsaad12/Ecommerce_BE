@@ -18,7 +18,11 @@ dotenv.config();
 connectToDatabase();
 
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+  }),
+);
 
 app.use(logApiHit);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));

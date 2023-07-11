@@ -24,14 +24,14 @@ const addproduct = async (req, res) => {
     await createProduct(data);
     logger.info('Product added successfully');
 
-    res.statusCode = SUCCESS_NO_CONTENT;
+    res.status(SUCCESS_NO_CONTENT);
     res.send(SUCCESS_MESSAGE);
   } catch (error) {
     const message = error.message || INTERNAL_ERROR_MESSAGE;
     const status = error.statusCode || INTERNAL_SERVER;
 
     logger.error(message);
-
+    res.status(status);
     res.send(makeError(message, status));
   }
 };
@@ -43,11 +43,11 @@ const getAllProducts = async (req, res) => {
     if (!products) {
       logger.error('No products found');
 
-      res.status = NOT_FOUND;
+      res.status(NOT_FOUND);
       return res.send(NOT_FOUND_MESSAGE);
     }
 
-    res.statusCode = SUCCESS;
+    res.status(SUCCESS);
     res.json(products);
   } catch (error) {
     const message = error.message || INTERNAL_ERROR_MESSAGE;
@@ -55,6 +55,7 @@ const getAllProducts = async (req, res) => {
 
     logger.error(message);
 
+    res.status(status);
     res.send(makeError(message, status));
   }
 };
@@ -68,7 +69,7 @@ const getProduct = async (req, res) => {
     if (!product) {
       logger.error('No products found');
 
-      res.status = NOT_FOUND;
+      res.status(NOT_FOUND);
       return res.send(NOT_FOUND_MESSAGE);
     }
     res.statusCode = SUCCESS;
@@ -78,7 +79,7 @@ const getProduct = async (req, res) => {
     const status = error.statusCode || INTERNAL_SERVER;
 
     logger.error(message);
-
+    res.status(status);
     res.send(makeError(message, status));
   }
 };

@@ -43,7 +43,7 @@ const signUp = async (req, res) => {
 
     const token = jwt.sign({ userName }, process.env.SECRET_KEY);
 
-    res.statusCode = SIGNUP_SUCCESSFULLY;
+    res.status(SIGNUP_SUCCESSFULLY);
     res.json({ token });
   } catch (error) {
     logger.error(error);
@@ -51,6 +51,7 @@ const signUp = async (req, res) => {
     const message = error.message || INTERNAL_ERROR_MESSAGE;
     const status = error.status || INTERNAL_SERVER;
 
+    res.status(status);
     res.send(makeError(message, status));
   }
 };
@@ -75,7 +76,7 @@ const signIn = async (req, res) => {
 
     const token = jwt.sign({ userName }, process.env.SECRET_KEY);
 
-    res.statusCode = SUCCESS;
+    res.status(SUCCESS);
     res.json({ token });
   } catch (error) {
     logger.error(error);

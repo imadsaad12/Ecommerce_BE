@@ -8,13 +8,17 @@ const {
   addProductSchema,
   getProductSchema,
 } = require('../validations/products');
+const cache = require('../cache');
 
 const productRoute = (router) => {
   router.post('/', validate(addProductSchema), addproduct);
 
-  router.get('/', getAllProducts);
+  // ignore cache middleware for now
+
+  router.get('/', cache(0), getAllProducts);
 
   router.get('/:id', validate(getProductSchema), getProduct);
+
   return router;
 };
 
